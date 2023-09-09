@@ -1,0 +1,235 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/a1250dbd69.js" crossorigin="anonymous"></script>
+    <title>Re1th's-portfolio</title>
+</head>
+<body>
+    <div id="header">
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fa-solid fa-user-astronaut logo"></i>
+                </div>
+                
+                <ul id="sidemenu">
+                    <li><a href="#header">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <i class="fa-solid fa-xmark" onclick="closemenu()"></i>
+                </ul>
+                <i class="fa-solid fa-bars" onclick="openmenu()"></i>
+            </nav>
+            <div id="header-body">
+                <div class="header-text">
+                    <p>Software Dev</p>
+                    <h1>Hi, I'm <span>Revanth</span><br> from India</h1>
+                </div>
+                <div class="header-quote">
+                    <p class="quote"><span class="inner-quote">"</span>The <span class="inner-word">best programmer </span>   never write a new program when he can use an old one for a new job<span class="inner-quote">"</span></p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+<!-- ----------about----------- -->
+    <div id="about">
+        <div class="container">
+            <div class="row">
+                <div class="about-col-1">
+                    <img src="images/revanth-stand-clr.jpg" alt="">
+                </div>
+                <div class="about-col-2">
+                    <h1 class="sub-title">About Me</h1>
+                    
+                    <p>Hey there everyone !! This is Revanth , a self taught programmer. I am passionate enought to build minimalistic web Apps which can be driven by a powerfull backend. I am full stack developer by profession in Bosch , where most of my job revolves around rapid prototyping of projects. Yes, I build stuff which doesn't exist till then and always tries to add value to end customer </p>
+                <div class="tab-titles">
+                    <p class="tab-links active-link" onclick="opentab('skills')">Skills</p>
+                    <p class="tab-links" onclick="opentab('Experience')">Experience</p>
+                    <p class="tab-links" onclick="opentab('Education')">Education</p>
+                </div>
+                <div class="tab-contents active-tab" id="skills">
+                    <ul>
+                        <li><span>Web Development</span><br>HTML, CSS , JAVASCRIPT(ES6,ES5) , NODE, REACT, MONGO DB, BOOTSTRAP, SQL </li>
+                        <li><span>Embedded development</span><br>Embedded C,CAPL, CAN , ASCET,</li>
+                        <li><span>Languages</span><br>Python, C</li>
+
+                    </ul>
+                </div>
+                <div class="tab-contents" id="Experience">
+                    <ul>
+                        <li><span>2022 Mar- Present(1.5 Yr)</span><br>Software engineer at Robert Bosch</li>
+                        <li><span>2021 Aug- 2022 Feb(6 Months)</span><br>Trainee at Cognizant</li>
+                        <!-- <li><span>App Development</span><br>Designing web/app interfaces</li> -->
+
+                    </ul>
+                </div>
+                <div class="tab-contents" id="Education">
+                    <ul>
+                        <li><span>Under Graduation (2017-2021)</span><br>Vignan's University</li>
+                        <li><span>Intermediate(2015 - 2017)</span><br>Bapatla Jr. College</li>
+                        <li><span>Secondary Education -CBSE(2015)</span><br>Kendriya Vidyalaya</li>
+
+                    </ul>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- -------------------services-------------- -->
+<div id="services">
+    <div class="container">
+        <h1 class="sub-title">My Services</h1>
+        <div class="services-list">
+            <div>
+                <i class="fa-solid fa-code"></i>
+                <h2>Web Development</h2>
+                <p>The usual projects around web development involves front end UI development based on the FIGMA designs provided and integrating APIs to it. Additionally I can able to code up server side logic using node.js.</p>
+            <a href="#">Learn more</a>
+            </div>
+            <div>
+                <i class="fa-solid fa-microchip"></i>
+                <h2>Embedded Development</h2>
+                <p>My projects in embedded development are mostly around 2 Wheeler segments, where I develop exclusive software on EPM44 ECU subjected to customer requirements.Connected projects involves developing softwares which communicate with the cloud and perform programmed tasks</p>
+            <a href="#">Learn more</a>
+            </div>
+            <div>
+                <i class="fa-brands fa-app-store-ios"></i>
+                <h2>Game Development</h2>
+                <p>A pure hobby based skill which got rippen because of my interest towards virtual games . I mainly develop rookie level game environments which are developed using UNITY 3d.</p>
+            <a href="#">Learn more</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- -----------portfolio--------------- -->
+
+<div id="portfolio">
+    <div class="container">
+        <h1 class="sub-title">My Work</h1>
+        <div class="work-list">
+            <div class="work">
+                <img src="images/work-1.png">
+                <div class="layer">
+                    <h3>
+                        Personal portfolio
+                    </h3>
+                    <p>A static personal portfolio website which was developed mainly to demonstrate my coding abilities in HTML and CSS.The entire website was developed just by using HTML and CSS.</p>
+                <a href="https://revanth2412.github.io/portfolio/"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+            </div>
+            <div class="work">
+                <img src="images/work-3.png">
+                <div class="layer">
+                    <h3>
+                       Social Awarness Website(coming soon)
+                    </h3>
+                    <p>This is a social blogging site , which was developed using HTML, CSS ,JS,Bootstrap mainly in order to provide responsiveness. This website speaks septically  about the current trending topcis in India i.e Bharat</p>
+                    <a href=""><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+            </div>
+            <div class="work">
+                <img src="images/work-2.png">
+                <div class="layer">
+                    <h3>
+                        Music App(Coming soon)
+                    </h3>
+                    <p>Thsi is a Web App like music player whose sole purpose is to demonstrate by capabilites of building spotify like music player.The entire web App is build using HTML, CSS ,JS and a database. With thish one can able to listen to any songs he uploads without music player app in phone or pc and without Ads mainly ;)</p>
+                <a href=""><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+            </div>
+            
+        </div>
+        <a href="#" class="btn">See more</a>
+    </div>
+</div>
+
+<!-- ------------------contact---------------- -->
+<div id="contact">
+    <div class="container">
+        <div class="row">
+            <div class="contact-left">
+                <h1 class="sub-title">Contact Me</h1>
+                <p> <i class="fa-solid fa-paper-plane"></i>revanth.sharma5198@gmail.com</p>
+                <p> <i class="fa-solid fa-phone"></i>7093300218</p>
+                <div class="social-icons">
+                    <a href="https://www.linkedin.com/in/revanth-themidithapati-a33b75155/"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="https://www.instagram.com/revanth__24/"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://github.com/revanth2412"><i class="fa-brands fa-github"></i></a>
+                    <!-- <a href="#"><i class="fa-brands fa-facebook"></i></a> -->
+                </div>
+                <a href="images/my-cv.pdf" download class="btn btn2 bt3">Download resume</a>
+                <h6 id="downlaod-cv">Write and submit the reason for the resume , upon which the download button will be enabled after 24hrs</h6>
+            </div>
+
+            <div class="contact-right">
+                <form name="submit-to-google-sheet" >
+                    <input type="text" name="Name" placeholder="Your Name" required>
+                    <input type="email" name="Email" placeholder="Your Email" required>
+                    <textarea name="Message" rows="6" placeholder="Your Message"></textarea>
+                    <button type="submit" class="btn btn2"> Submit</button>
+                </form>
+                <span id="msg">  </span>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        <p>copyright © Revanth. Made with <i class="fa-solid fa-heart"></i> </p>
+    </div>
+</div>
+
+    <script>
+
+        var tablinks=document.getElementsByClassName("tab-links");
+        var tabcontents=document.getElementsByClassName("tab-contents");
+
+        function opentab(tabname){
+            for(tablink of tablinks){
+                tablink.classList.remove("active-link")
+            }
+            for(tabcontent of tabcontents){
+                tabcontent.classList.remove("active-tab")
+            }
+            event.currentTarget.classList.add("active-link")
+            document.getElementById(tabname).classList.add("active-tab")
+        }
+    </script>
+
+    <script>
+    var sidemenu=document.getElementById("sidemenu");
+
+     function openmenu(){
+    sidemenu.style.right="0"
+       }
+       function closemenu(){
+        sidemenu.style.right="-200px"
+      }
+
+    </script>
+
+      
+      <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzvi-Y5Klp7X-a9Llb-5Mc4gmmH2rP6g7FAHOlvkW0TN9wRO-zai-RmmtEBBnCBQTS9/exec'
+        const form = document.forms['submit-to-google-sheet']
+        const msg=document.getElementById("msg");
+        form.addEventListener('submit', e => {
+          e.preventDefault()
+          fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+            .then(response => {msg.innerHTML="Message sent successfully."
+                              setTimeout(function(){
+                                msg.innerHTML=""
+                              },5000)
+                              form.reset()
+                            })
+            .catch(error => console.error('Error!', error.message))
+        })
+      </script>
+</body>
+</html>
