@@ -212,6 +212,9 @@ nav ul li a:hover::after{
 padding: 50px 0;
 
 }
+.extra-item{
+    display: none;
+}
 
 .work-list{
     display: grid;
