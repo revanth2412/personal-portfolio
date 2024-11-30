@@ -40,7 +40,8 @@ nav{
 }
 .disabled{
 pointer-events: none;
-  cursor: default
+  cursor: default 
+}
 
 nav ul li{
     display: inline-block;
