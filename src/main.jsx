@@ -5,12 +5,16 @@ import { Award, BookOpen, BriefcaseBusiness, ChevronRight, Cloud, Code2, Cpu, Ex
 import { SiReact, SiNodedotjs, SiExpress, SiMongodb, SiMysql, SiJavascript, SiPython, SiDocker, SiRazorpay, SiC, SiGit, SiHtml5 } from 'react-icons/si';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
+import Lenis from 'lenis';
 import './styles.css';
 import './overrides.css';
 import './contact.css';
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
 const GithubMark=()=> <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.23c0 4.52 2.87 8.35 6.84 9.71.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.89-2.78.62-3.37-1.2-3.37-1.2-.46-1.19-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .08 1.53 1.06 1.53 1.06.9 1.57 2.35 1.12 2.92.86.09-.67.35-1.12.64-1.38-2.22-.26-4.56-1.14-4.56-5.05 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05A9.3 9.3 0 0 1 12 6.9c.85 0 1.7.12 2.5.34 1.9-1.33 2.74-1.05 2.74-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.92-2.34 4.78-4.57 5.04.36.32.68.92.68 1.85 0 1.34-.01 2.42-.01 2.75 0 .27.18.59.69.49A10.22 10.22 0 0 0 22 12.23C22 6.58 17.52 2 12 2Z"/></svg>;
+
+
 const LinkedInMark=()=> <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.95v5.66H9.35V8.98h3.41v1.57h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.29ZM5.34 7.41a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14Zm1.78 13.04H3.56V8.98h3.56v11.47Z"/></svg>;
 const projects=[['Pixel Crop','AI background-removal SaaS with Razorpay payments.','AI / SAAS','https://pixelcrop.vercel.app/',Sparkles],['Easily','Job application platform using MVC, JWT, file handling and recruiter workflows.','WEB PLATFORM','https://easily-delta.vercel.app/',BriefcaseBusiness],['Edutech','An education information application developed in collaboration with Educity.','EDUCATION','https://greatstack.in/',GraduationCap],['IMS','A comprehensive inventory system for warehouse and store operations.','INVENTORY','https://inventorymanagementsystem-ypaw.onrender.com/login',Cloud],['SocialMedia Backend','Robust backend with authentication, posts, comments, likes and password recovery.','BACKEND','https://socialmedia-ufly.onrender.com/',Code2],['E-Commerce Backend','API-first commerce operations for products, carts, categories and users.','BACKEND','https://e-commerce-tgiy.onrender.com/',BriefcaseBusiness],['Task Manager','A focused browser-based daily task tracking utility.','PRODUCTIVITY','https://revanth2412.github.io/taskmanager/',Sparkles],['Akasavani','A lightweight weather utility for checking conditions wherever you are.','WEATHER','https://revanth2412.github.io/akasavani/',Cloud]];
 const awards=[['Best Tyro','BGSW · Dec 2024'],['Crowd Sourcing Champ','BGSW · Oct 2024'],['Growth Driver','BGSW 2WP Ideathon winner · Aug 2024'],['Bravo','BGSW · Dec 2023']];
@@ -129,11 +133,267 @@ function App(){
         duration: 0.6,
         ease: "sine.inOut"
       });
+
+      // Initialize Premium Buttery Smooth Lenis Scroll
+      const lenis = new Lenis({
+        lerp: 0.065, // extreme fluid damping
+        duration: 1.4, // smooth deceleration
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // premium exponential deceleration
+        smoothWheel: true
+      });
+
+      // Synchronize Lenis scroll frames with GSAP ScrollTrigger
+      lenis.on('scroll', ScrollTrigger.update);
       
-      // Buttery smooth GSAP Horizontal Scroll for Projects on Desktop
-      if (window.innerWidth > 800) {
+      const tickerCallback = (time) => {
+        lenis.raf(time * 1000);
+      };
+      gsap.ticker.add(tickerCallback);
+      gsap.ticker.lagSmoothing(0);
+
+      // Viewport-relative paper plane path and flight animation
+      const mm = gsap.matchMedia();
+
+      // Mobile viewport triggers (max-width: 800px)
+      mm.add("(max-width: 800px)", () => {
+        const pathEl = q('#plane-path')[0];
+        const planeContainer = q('.scroll-paper-plane-container')[0];
+        const planeWobbler = q('.scroll-paper-plane-wobbler')[0];
+        if (!pathEl || !planeContainer || !planeWobbler) return;
+
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+
+        const cx = w * 0.45;
+        const cy = h * 0.5;
+        const r = Math.min(w, h) * 0.22;
+
+        const introPoints = [
+          { x: -100, y: h * 0.15 },
+          { x: cx - r, y: cy } // start of circle
+        ];
+
+        // 8 points for a smooth, perfect circle swivel
+        for (let theta = Math.PI; theta >= -Math.PI; theta -= Math.PI / 4) {
+          introPoints.push({
+            x: cx + r * Math.cos(theta),
+            y: cy + r * Math.sin(theta)
+          });
+        }
+        introPoints.push({ x: cx, y: cy });
+
+        let introDPath = `M ${introPoints[0].x} ${introPoints[0].y}`;
+        for (let i = 1; i < introPoints.length - 1; i++) {
+          const xc = (introPoints[i].x + introPoints[i + 1].x) / 2;
+          const yc = (introPoints[i].y + introPoints[i + 1].y) / 2;
+          introDPath += ` Q ${introPoints[i].x} ${introPoints[i].y}, ${xc} ${yc}`;
+        }
+        introDPath += ` L ${introPoints[introPoints.length - 1].x} ${introPoints[introPoints.length - 1].y}`;
+
+        // Mobile main scroll curves: tighter sweeps, closer to center reading column
+        const scrollPoints = [
+          { x: cx, y: cy }, 
+          { x: w * 0.3, y: h * 0.35 },
+          { x: w * 0.7, y: h * 0.5 },
+          { x: w * 0.35, y: h * 0.45 },
+          { x: w * 0.65, y: h * 0.55 },
+          { x: w * 0.4, y: h * 0.5 },
+          { x: w * 0.6, y: h * 0.6 },
+          { x: w + 80, y: h * 0.75 }
+        ];
+
+        let scrollDPath = `M ${scrollPoints[0].x} ${scrollPoints[0].y}`;
+        for (let i = 1; i < scrollPoints.length - 1; i++) {
+          const xc = (scrollPoints[i].x + scrollPoints[i + 1].x) / 2;
+          const yc = (scrollPoints[i].y + scrollPoints[i + 1].y) / 2;
+          scrollDPath += ` Q ${scrollPoints[i].x} ${scrollPoints[i].y}, ${xc} ${yc}`;
+        }
+        scrollDPath += ` L ${scrollPoints[scrollPoints.length - 1].x} ${scrollPoints[scrollPoints.length - 1].y}`;
+
+        pathEl.setAttribute('d', introDPath);
+        const introLength = pathEl.getTotalLength();
+        gsap.set(pathEl, { strokeDasharray: `200 ${introLength + 250}`, strokeDashoffset: 200, opacity: 1 });
+        gsap.set(planeContainer, { scale: 0 });
+
+        const introTl = gsap.timeline({
+          onComplete: () => {
+            gsap.to(pathEl, {
+              opacity: 0,
+              duration: 0.25,
+              onComplete: () => {
+                pathEl.setAttribute('d', scrollDPath);
+                const scrollLength = pathEl.getTotalLength();
+                gsap.set(pathEl, { strokeDasharray: `200 ${scrollLength + 250}`, strokeDashoffset: 200 });
+                gsap.to(pathEl, { opacity: 1, duration: 0.25 });
+
+                gsap.timeline({
+                  scrollTrigger: {
+                    trigger: document.body,
+                    start: "top top",
+                    end: "bottom bottom",
+                    scrub: 2.2,
+                    invalidateOnRefresh: true
+                  }
+                })
+                .to(pathEl, { strokeDashoffset: 200 - scrollLength, ease: "none" }, 0)
+                .to(planeContainer, {
+                  motionPath: {
+                    path: pathEl,
+                    align: pathEl,
+                    alignOrigin: [0.5, 0.5],
+                    autoRotate: true
+                  },
+                  ease: "none"
+                }, 0);
+              }
+            });
+          }
+        });
+
+        introTl.to(planeContainer, { scale: 1, duration: 0.5, ease: "power2.out" }, 0);
+        introTl.to(pathEl, { strokeDashoffset: 200 - introLength, duration: 3.2, ease: "power1.inOut" }, 0);
+        introTl.to(planeContainer, {
+          motionPath: {
+            path: pathEl,
+            align: pathEl,
+            alignOrigin: [0.5, 0.5],
+            autoRotate: true
+          },
+          duration: 3.2,
+          ease: "power1.inOut"
+        }, 0);
+
+        gsap.to(planeWobbler, {
+          y: "+=6",
+          rotation: "+=4",
+          duration: 1.5,
+          ease: "sine.inOut",
+          yoyo: true,
+          repeat: -1
+        });
+      });
+
+      // Desktop viewport triggers (min-width: 801px)
+      mm.add("(min-width: 801px)", () => {
+        const pathEl = q('#plane-path')[0];
+        const planeContainer = q('.scroll-paper-plane-container')[0];
+        const planeWobbler = q('.scroll-paper-plane-wobbler')[0];
         const track = q('.projects-track')[0];
         const section = q('#projects')[0];
+        if (!pathEl || !planeContainer || !planeWobbler) return;
+
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+
+        const cx = w * 0.45;
+        const cy = h * 0.5;
+        const r = Math.min(w, h) * 0.28;
+
+        const introPoints = [
+          { x: -100, y: h * 0.15 },
+          { x: cx - r, y: cy } // start of circle
+        ];
+
+        // 8 points for a smooth, perfect circle swivel
+        for (let theta = Math.PI; theta >= -Math.PI; theta -= Math.PI / 4) {
+          introPoints.push({
+            x: cx + r * Math.cos(theta),
+            y: cy + r * Math.sin(theta)
+          });
+        }
+        introPoints.push({ x: cx, y: cy });
+
+        let introDPath = `M ${introPoints[0].x} ${introPoints[0].y}`;
+        for (let i = 1; i < introPoints.length - 1; i++) {
+          const xc = (introPoints[i].x + introPoints[i + 1].x) / 2;
+          const yc = (introPoints[i].y + introPoints[i + 1].y) / 2;
+          introDPath += ` Q ${introPoints[i].x} ${introPoints[i].y}, ${xc} ${yc}`;
+        }
+        introDPath += ` L ${introPoints[introPoints.length - 1].x} ${introPoints[introPoints.length - 1].y}`;
+
+        // Desktop main scroll curves: broad sweeps across viewport width
+        const scrollPoints = [
+          { x: cx, y: cy }, // Starts floating in the middle of the screen!
+          { x: w * 0.15, y: h * 0.35 },
+          { x: w * 0.85, y: h * 0.5 },
+          { x: w * 0.2, y: h * 0.45 },
+          { x: w * 0.8, y: h * 0.55 },
+          { x: w * 0.25, y: h * 0.5 },
+          { x: w * 0.65, y: h * 0.6 },
+          { x: w + 100, y: h * 0.75 }
+        ];
+
+        let scrollDPath = `M ${scrollPoints[0].x} ${scrollPoints[0].y}`;
+        for (let i = 1; i < scrollPoints.length - 1; i++) {
+          const xc = (scrollPoints[i].x + scrollPoints[i + 1].x) / 2;
+          const yc = (scrollPoints[i].y + scrollPoints[i + 1].y) / 2;
+          scrollDPath += ` Q ${scrollPoints[i].x} ${scrollPoints[i].y}, ${xc} ${yc}`;
+        }
+        scrollDPath += ` L ${scrollPoints[scrollPoints.length - 1].x} ${scrollPoints[scrollPoints.length - 1].y}`;
+
+        pathEl.setAttribute('d', introDPath);
+        const introLength = pathEl.getTotalLength();
+        gsap.set(pathEl, { strokeDasharray: `200 ${introLength + 250}`, strokeDashoffset: 200, opacity: 1 });
+        gsap.set(planeContainer, { scale: 0 });
+
+        const introTl = gsap.timeline({
+          onComplete: () => {
+            gsap.to(pathEl, {
+              opacity: 0,
+              duration: 0.25,
+              onComplete: () => {
+                pathEl.setAttribute('d', scrollDPath);
+                const scrollLength = pathEl.getTotalLength();
+                gsap.set(pathEl, { strokeDasharray: `200 ${scrollLength + 250}`, strokeDashoffset: 200 });
+                gsap.to(pathEl, { opacity: 1, duration: 0.25 });
+
+                gsap.timeline({
+                  scrollTrigger: {
+                    trigger: document.body,
+                    start: "top top",
+                    end: "bottom bottom",
+                    scrub: 2.2,
+                    invalidateOnRefresh: true
+                  }
+                })
+                .to(pathEl, { strokeDashoffset: 200 - scrollLength, ease: "none" }, 0)
+                .to(planeContainer, {
+                  motionPath: {
+                    path: pathEl,
+                    align: pathEl,
+                    alignOrigin: [0.5, 0.5],
+                    autoRotate: true
+                  },
+                  ease: "none"
+                }, 0);
+              }
+            });
+          }
+        });
+
+        introTl.to(planeContainer, { scale: 1, duration: 0.5, ease: "power2.out" }, 0);
+        introTl.to(pathEl, { strokeDashoffset: 200 - introLength, duration: 3.2, ease: "power1.inOut" }, 0);
+        introTl.to(planeContainer, {
+          motionPath: {
+            path: pathEl,
+            align: pathEl,
+            alignOrigin: [0.5, 0.5],
+            autoRotate: true
+          },
+          duration: 3.2,
+          ease: "power1.inOut"
+        }, 0);
+
+        gsap.to(planeWobbler, {
+          y: "+=8",
+          rotation: "+=6",
+          duration: 1.5,
+          ease: "sine.inOut",
+          yoyo: true,
+          repeat: -1
+        });
+
+        // Desktop horizontal scroll pinning
         if (track && section) {
           gsap.to(track, {
             x: () => -(track.scrollWidth - window.innerWidth + 120),
@@ -141,19 +401,61 @@ function App(){
             scrollTrigger: {
               trigger: section,
               pin: true,
-              scrub: 1.2, // smooth scrub with lag inertia
+              scrub: 1.2,
               start: "top top",
               end: () => "+=" + track.scrollWidth,
               invalidateOnRefresh: true,
             }
           });
         }
-      }
+      });
     },root);
-    return()=>c.revert()
+    return () => {
+      c.revert();
+      mm.revert();
+      gsap.ticker.remove(tickerCallback);
+      lenis.destroy();
+    };
   },[]);
 
   return <main ref={root} className={dark?'dark':''}>
+    <svg className="scroll-path-svg" style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: '100vw',
+      height: '100vh',
+      pointerEvents: 'none',
+      zIndex: 999,
+      overflow: 'visible'
+    }}>
+      <path id="plane-path" fill="none" stroke="rgba(239, 102, 136, 0.25)" strokeWidth="2" strokeDasharray="6 6" />
+    </svg>
+    <div className="scroll-paper-plane-container" style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      pointerEvents: 'none',
+      zIndex: 1000,
+      willChange: 'transform'
+    }}>
+      <div className="scroll-paper-plane-wobbler" style={{ willChange: 'transform' }}>
+        <svg className="scroll-paper-plane" viewBox="0 0 24 24" width="56" height="56" style={{
+          overflow: 'visible',
+          willChange: 'transform',
+          filter: 'drop-shadow(0 6px 14px rgba(0,0,0,0.14))'
+        }}>
+          {/* Right Wing (far side ambient shade) */}
+          <polygon points="24,12 10,11 4,16" fill="#eae7dd" className="plane-wing-poly" />
+          {/* Fuselage Side (underneath crease shadow) */}
+          <polygon points="24,12 10,11 6,17" fill="#c5c2b9" className="plane-shadow-poly" />
+          {/* Left Wing (highlighted top side facing us) */}
+          <polygon points="24,12 2,3 10,11" fill="#ffffff" className="plane-wing-highlight" />
+          {/* Center crease fold line */}
+          <line x1="10" y1="11" x2="24" y2="12" stroke="#d4d1c7" strokeWidth="0.5" />
+        </svg>
+      </div>
+    </div>
     {toast.show && createPortal(
       <div className="toast-container" id="toast-notification">
         <div className={`toast-bubble ${toast.type} ${toast.exiting ? 'exiting' : ''}`}>
@@ -165,6 +467,7 @@ function App(){
       </div>,
       document.body
     )}
+
       <header className={`mobile-header ${navVisible ? '' : 'nav-hidden'}`}>
         {renderBrandText()}
         <button className="theme" aria-label="Toggle dark mode" onClick={()=>{haptic();setDark(!dark)}}>{dark?<Sun/>:<Moon/>}</button>

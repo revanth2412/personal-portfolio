@@ -1064,4 +1064,66 @@ html, body {
   background: #151622 !important;
 }
 
+/* 3D paper plane styles & responsive fixed viewport themes */
+.scroll-path-svg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 999;
+  overflow: visible;
+}
+
+.scroll-path-svg path {
+  stroke: rgba(239, 102, 136, 0.3) !important;
+}
+
+.dark .scroll-path-svg path {
+  stroke: rgba(255, 206, 86, 0.35) !important;
+}
+
+.scroll-paper-plane-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 1000;
+  will-change: transform;
+}
+
+.scroll-paper-plane {
+  display: block;
+  pointer-events: none;
+  width: 56px;
+  height: 56px;
+  filter: drop-shadow(0 4px 12px rgba(239, 102, 136, 0.25));
+  will-change: transform;
+  transform-origin: center center;
+}
+
+@media (max-width: 800px) {
+  .scroll-paper-plane {
+    width: 44px !important;
+    height: 44px !important;
+  }
+}
+
+.dark .scroll-paper-plane {
+  filter: drop-shadow(0 6px 16px rgba(255, 206, 86, 0.35)) !important;
+}
+
+.dark .plane-wing-highlight {
+  fill: #fdfdfb !important;
+}
+
+.dark .plane-wing-poly {
+  fill: #d8d8ce !important;
+}
+
+.dark .plane-shadow-poly {
+  fill: #b3b3a6 !important;
+}
+
 
