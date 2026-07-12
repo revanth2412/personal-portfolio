@@ -58,31 +58,32 @@
     cursor: pointer;
   }
   
-  /* Bottom Tab Bar (App Navigation Style) */
-  .nav {
-    position: fixed;
+  /* Bottom Tab Bar (App Navigation Style) - Floating Pill with Rounder Corners */
+  .nav, .nav-bubble, .nav.nav-bubble {
+    position: fixed !important;
     top: auto !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    transform: none !important;
+    bottom: 16px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
     height: 64px !important;
-    width: 100% !important;
-    border-radius: 20px 20px 0 0 !important;
-    background: rgba(250, 248, 242, 0.94) !important;
+    width: min(480px, 92vw) !important;
+    border-radius: 100px !important; /* Extremely rounded corners */
+    background: rgba(250, 248, 242, 0.92) !important;
     backdrop-filter: blur(18px);
-    box-shadow: 0 -5px 25px rgba(29, 27, 40, 0.08);
-    border: none !important;
-    border-top: 1px solid var(--line) !important;
+    box-shadow: 0 10px 30px rgba(29, 27, 40, 0.12) !important;
+    border: 1px solid var(--line) !important;
     z-index: 50;
-    padding: 0 !important;
+    padding: 0 12px !important;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    transition: width 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.4s !important;
   }
   
-  .dark .nav {
-    background: rgba(21, 22, 34, 0.94) !important;
-    border-top-color: rgba(255,255,255,0.1) !important;
+  .dark .nav, .dark .nav-bubble, .dark .nav.nav-bubble {
+    background: rgba(21, 22, 34, 0.92) !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
   }
   
   /* Hide desktop-only components in bottom tab bar */
@@ -940,44 +941,90 @@
   }
 }
 
-/* Projects Section Light Mode Text Visibility Controls */
+/* Selected Projects Light/Dark Mode Contrast Fixes */
 .projects {
+  background: var(--paper) !important;
   color: var(--ink) !important;
 }
 
-.project-title h2 {
+.projects .project-title h2 {
   color: var(--ink) !important;
 }
 
-.project-title p {
+.projects .project-title p {
+  color: var(--ink) !important;
+  opacity: 0.8 !important;
+}
+
+.projects a.project {
+  background: #ffffff90 !important;
+  border-color: var(--line) !important;
+}
+
+.projects a.project h3 {
   color: var(--ink) !important;
 }
 
-.project h3 {
-  color: var(--ink) !important;
-}
-
-.project p {
+.projects a.project p {
   color: #ef6688 !important; /* category tag in pink */
 }
 
-.project small {
+.projects a.project small {
   color: #555566 !important; /* highly readable description */
 }
 
-.project b {
+.projects a.project b {
   color: var(--ink) !important;
 }
 
-/* Hover overrides to maintain readability */
-.project:hover h3 {
+.projects a.project:hover {
+  background: #ffffff !important;
+  border-color: var(--ink) !important;
+}
+
+/* Dark Mode Overrides for Projects */
+.dark .projects {
+  background: #151622 !important;
+}
+
+.dark .projects .project-title h2 {
   color: var(--ink) !important;
 }
 
-.project:hover small {
-  color: #555566 !important;
+.dark .projects .project-title p {
+  color: #a8a4b8 !important;
 }
 
-.project:hover b {
+.dark .projects a.project {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.dark .projects a.project h3 {
   color: var(--ink) !important;
 }
+
+.dark .projects a.project p {
+  color: var(--yellow) !important; /* category tag in yellow */
+}
+
+.dark .projects a.project small {
+  color: #b0aac2 !important;
+}
+
+.dark .projects a.project b {
+  color: var(--ink) !important;
+}
+
+.dark .projects a.project:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+/* Safety layout locks to completely prevent horizontal scrolling on mobile */
+html, body {
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+}
+
+
