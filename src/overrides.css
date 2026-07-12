@@ -1059,4 +1059,9 @@ html, body {
   display: inline-block !important;
 }
 
+/* Dark Mode technology wrapper background override to resolve corner artifacts */
+.dark .tech-wrapper {
+  background: #151622 !important;
+}
+
 

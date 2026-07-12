@@ -70,46 +70,8 @@ function App(){
     }, 3500);
   };
 
-  const handleBrandHover = (e) => {
-    const chars = e.currentTarget.querySelectorAll('.brand-char');
-    const dot = e.currentTarget.querySelector('.brand-dot');
-    if (!chars.length) return;
-    
-    // Wave animation for characters
-    gsap.timeline()
-      .to(chars, {
-        y: -5,
-        color: '#ef6688',
-        stagger: 0.03,
-        duration: 0.15,
-        ease: "power2.out"
-      })
-      .to(chars, {
-        y: 0,
-        color: 'inherit',
-        stagger: 0.03,
-        duration: 0.2,
-        ease: "power2.inOut"
-      });
-
-    // Bouncy scale for the dot
-    if (dot) {
-      gsap.timeline()
-        .to(dot, {
-          scale: 1.4,
-          duration: 0.15,
-          ease: "power2.out"
-        })
-        .to(dot, {
-          scale: 1,
-          duration: 0.35,
-          ease: "elastic.out(1.2, 0.4)"
-        });
-    }
-  };
-
   const renderBrandText = () => (
-    <a onClick={haptic} onMouseEnter={handleBrandHover} className="brand" href="#top">
+    <a onClick={haptic} className="brand" href="#top">
       {"revanth".split("").map((char, i) => (
         <span key={i} className="brand-char" style={{ display: 'inline-block', willChange: 'transform' }}>{char}</span>
       ))}
@@ -149,20 +111,23 @@ function App(){
       gsap.to(q('.spark'),{y:-12,duration:1.7,repeat:-1,yoyo:true,ease:'sine.inOut'});
       gsap.utils.toArray(q('.reveal')).forEach(el=>gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},y:38,opacity:0,duration:.75,ease:'power3.out'}));
       
-      // Staggered entry animation for the brand text in nav and header
-      gsap.from(q('.brand-char'), {
-        y: 12,
-        opacity: 0,
-        stagger: 0.04,
+      // Infinite wavy bob animation for brand text
+      gsap.to(q('.brand-char'), {
+        y: -3,
+        stagger: {
+          each: 0.08,
+          repeat: -1,
+          yoyo: true
+        },
         duration: 0.6,
-        ease: "back.out(1.8)",
-        delay: 0.2
+        ease: "sine.inOut"
       });
-      gsap.from(q('.brand-dot'), {
-        scale: 0,
-        duration: 0.5,
-        ease: "elastic.out(1, 0.3)",
-        delay: 0.5
+      gsap.to(q('.brand-dot'), {
+        scale: 1.3,
+        repeat: -1,
+        yoyo: true,
+        duration: 0.6,
+        ease: "sine.inOut"
       });
       
       // Buttery smooth GSAP Horizontal Scroll for Projects on Desktop
