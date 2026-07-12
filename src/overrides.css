@@ -443,12 +443,25 @@
   color: #151622 !important;
 }
 
-/* Mobile responsive styles */
 @media (max-width: 800px) {
+  .hero {
+    align-items: center !important;
+  }
+
+  .hero-copy {
+    align-items: center !important;
+    text-align: center !important;
+    width: 100% !important;
+  }
+
   .hero-actions {
     gap: 16px;
     margin-top: 24px;
-    justify-content: flex-start;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important; /* Centered explore and resume buttons */
+    align-items: center !important;
+    width: 100% !important;
   }
   
   .primary, .hero-resume {
@@ -465,6 +478,8 @@
     width: 100%;
     margin-top: 10px;
     gap: 12px;
+    display: flex !important;
+    justify-content: center !important; /* Centered socials */
   }
 }
 
