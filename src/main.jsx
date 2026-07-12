@@ -70,6 +70,53 @@ function App(){
     }, 3500);
   };
 
+  const handleBrandHover = (e) => {
+    const chars = e.currentTarget.querySelectorAll('.brand-char');
+    const dot = e.currentTarget.querySelector('.brand-dot');
+    if (!chars.length) return;
+    
+    // Wave animation for characters
+    gsap.timeline()
+      .to(chars, {
+        y: -5,
+        color: '#ef6688',
+        stagger: 0.03,
+        duration: 0.15,
+        ease: "power2.out"
+      })
+      .to(chars, {
+        y: 0,
+        color: 'inherit',
+        stagger: 0.03,
+        duration: 0.2,
+        ease: "power2.inOut"
+      });
+
+    // Bouncy scale for the dot
+    if (dot) {
+      gsap.timeline()
+        .to(dot, {
+          scale: 1.4,
+          duration: 0.15,
+          ease: "power2.out"
+        })
+        .to(dot, {
+          scale: 1,
+          duration: 0.35,
+          ease: "elastic.out(1.2, 0.4)"
+        });
+    }
+  };
+
+  const renderBrandText = () => (
+    <a onClick={haptic} onMouseEnter={handleBrandHover} className="brand" href="#top">
+      {"revanth".split("").map((char, i) => (
+        <span key={i} className="brand-char" style={{ display: 'inline-block', willChange: 'transform' }}>{char}</span>
+      ))}
+      <span className="brand-dot" style={{ display: 'inline-block', color: '#ef6688', willChange: 'transform' }}>.</span>
+    </a>
+  );
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (submitting) return;
@@ -101,6 +148,22 @@ function App(){
       gsap.to(q('.ring'),{rotate:360,duration:28,repeat:-1,ease:'none'});
       gsap.to(q('.spark'),{y:-12,duration:1.7,repeat:-1,yoyo:true,ease:'sine.inOut'});
       gsap.utils.toArray(q('.reveal')).forEach(el=>gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},y:38,opacity:0,duration:.75,ease:'power3.out'}));
+      
+      // Staggered entry animation for the brand text in nav and header
+      gsap.from(q('.brand-char'), {
+        y: 12,
+        opacity: 0,
+        stagger: 0.04,
+        duration: 0.6,
+        ease: "back.out(1.8)",
+        delay: 0.2
+      });
+      gsap.from(q('.brand-dot'), {
+        scale: 0,
+        duration: 0.5,
+        ease: "elastic.out(1, 0.3)",
+        delay: 0.5
+      });
       
       // Buttery smooth GSAP Horizontal Scroll for Projects on Desktop
       if (window.innerWidth > 800) {
@@ -138,10 +201,10 @@ function App(){
       document.body
     )}
       <header className={`mobile-header ${navVisible ? '' : 'nav-hidden'}`}>
-        <a onClick={haptic} className="brand" href="#top">revanth<span>.</span></a>
+        {renderBrandText()}
         <button className="theme" aria-label="Toggle dark mode" onClick={()=>{haptic();setDark(!dark)}}>{dark?<Sun/>:<Moon/>}</button>
       </header>
-<nav className={`nav ${scrolled?'nav-bubble':''} ${navVisible ? '' : 'nav-hidden'}`}><a onClick={haptic} className="brand" href="#top">revanth<span>.</span></a><div className="navlinks"><a onClick={haptic} href="#about"><User /><span>about</span></a><a onClick={haptic} href="#tech"><Cpu /><span>stack</span></a><a onClick={haptic} href="#projects"><BriefcaseBusiness /><span>projects</span></a><a onClick={haptic} href="#education"><GraduationCap /><span>education</span></a><a onClick={haptic} href="#journey"><Award /><span>journey</span></a><a onClick={haptic} href="#contact"><Mail /><span>contact</span></a></div><a onClick={haptic} className="sayhi" href="mailto:revanth.sharma5198@gmail.com">say hello <Mail/></a><button className="theme" aria-label="Toggle dark mode" onClick={()=>{haptic();setDark(!dark)}}>{dark?<Sun/>:<Moon/>}</button><button className="menu-button" onClick={()=>{haptic();setMenu(!menu)}}>{menu?<X/>:<Menu/>}</button></nav>{menu&&<div className="mobile"><a onClick={()=>{haptic();setMenu(false)}} href="#about">about</a><a onClick={()=>{haptic();setMenu(false)}} href="#tech">stack</a><a onClick={()=>{haptic();setMenu(false)}} href="#projects">projects</a><a onClick={()=>{haptic();setMenu(false)}} href="#education">education</a><a onClick={()=>{haptic();setMenu(false)}} href="#journey">journey</a><a onClick={()=>{haptic();setMenu(false)}} href="#contact">contact</a></div>}
+<nav className={`nav ${scrolled?'nav-bubble':''} ${navVisible ? '' : 'nav-hidden'}`}>{renderBrandText()}<div className="navlinks"><a onClick={haptic} href="#about"><User /><span>about</span></a><a onClick={haptic} href="#tech"><Cpu /><span>stack</span></a><a onClick={haptic} href="#projects"><BriefcaseBusiness /><span>projects</span></a><a onClick={haptic} href="#education"><GraduationCap /><span>education</span></a><a onClick={haptic} href="#journey"><Award /><span>journey</span></a><a onClick={haptic} href="#contact"><Mail /><span>contact</span></a></div><a onClick={haptic} className="sayhi" href="mailto:revanth.sharma5198@gmail.com">say hello <Mail/></a><button className="theme" aria-label="Toggle dark mode" onClick={()=>{haptic();setDark(!dark)}}>{dark?<Sun/>:<Moon/>}</button><button className="menu-button" onClick={()=>{haptic();setMenu(!menu)}}>{menu?<X/>:<Menu/>}</button></nav>{menu&&<div className="mobile"><a onClick={()=>{haptic();setMenu(false)}} href="#about">about</a><a onClick={()=>{haptic();setMenu(false)}} href="#tech">stack</a><a onClick={()=>{haptic();setMenu(false)}} href="#projects">projects</a><a onClick={()=>{haptic();setMenu(false)}} href="#education">education</a><a onClick={()=>{haptic();setMenu(false)}} href="#journey">journey</a><a onClick={()=>{haptic();setMenu(false)}} href="#contact">contact</a></div>}
 <section id="top" className="hero"><div className="hero-copy"><p className="chip intro-anim">SOFTWARE DEVELOPMENT ENGINEER</p><h1 className="intro-anim">Hello, I’m<br/><em>Revanth.</em></h1><p className="intro-anim">A self-taught engineer crafting clean web products and inventive embedded prototypes at <b>Bosch Global Software Technologies.</b></p><div className="hero-actions intro-anim"><a onClick={haptic} className="primary" href="#about">Explore my world <ChevronRight/></a><a onClick={haptic} className="hero-resume" href="/revanth-temididapati-resume.pdf" download>Resume <ChevronRight/></a><div className="social"><a onClick={haptic} href="https://github.com/revanth2412" target="_blank"><GithubMark/></a><a onClick={haptic} href="https://www.linkedin.com/in/revanthtemididapati/" target="_blank"><LinkedInMark/></a></div></div></div><div className="hero-image intro-anim"><img src="/revanth-profile.jpg" alt="Revanth Temididapati"/><div className="ring"><i/><i/><i/><i/><i/><i/></div><div className="spark">✦</div><div className="click-note">BUILD · LEARN · REPEAT</div></div><div className="hero-facts intro-anim"><div><b>20</b><span>public repositories</span></div><div><b>08</b><span>featured projects</span></div><div><b>AZ-900</b><span>Azure certified</span></div></div></section>
 <section id="about" className="about"><p className="eyebrow reveal">01 / SHORT PROFILE</p><div className="about-grid"><h2 className="reveal">Making the complex<br/>feel <em>surprisingly clear.</em></h2><div className="about-text reveal"><p>My strength is converting intricate business logic into tangible, user-friendly software. I move comfortably between web engineering, cloud fundamentals, and embedded development.</p><div className="languages"><span>ENGLISH <b>●</b></span><span>TELUGU <b>●</b></span><span>HINDI <b>●</b></span><span>GERMAN <i>basic</i></span></div></div></div></section>
 <section className="dashboard"><article className="dash-card work-card reveal"><span className="icon"><BriefcaseBusiness/></span><p className="eyebrow">CURRENTLY</p><h3>Software Development Engineer</h3><b>Bosch Global Software Technologies</b><p>Rapid prototyping for innovation projects and automotive systems.</p></article><article className="dash-card cert-card reveal"><span className="icon"><Award/></span><p className="eyebrow">CERTIFIED</p><h3>Microsoft Certified:<br/>Azure Fundamentals</h3><p>Microsoft · issued Aug 2024</p><div className="cert-orbit">AZ<br/>900</div></article><article className="dash-card edu-card reveal"><span className="icon"><GraduationCap/></span><p className="eyebrow">EDUCATION</p><h3>B.Tech, Vignan’s University</h3><b>2017 — 2021</b><p>GPA 9.2 / 10</p></article><article className="dash-card paper-card reveal"><span className="icon"><BookOpen/></span><p className="eyebrow">PUBLISHED</p><h3>Ultra-Low Power m-Sequence Code Generator</h3><p>IEEE · June 2019 · body sensor node applications</p><a href="#projects">Read the work <ExternalLink/></a></article></section>

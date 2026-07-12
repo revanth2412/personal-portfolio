@@ -1054,4 +1054,9 @@ html, body {
   overflow-x: hidden !important;
 }
 
+/* Inline block overrides for GSAP header character transforms */
+.brand-char, .brand-dot {
+  display: inline-block !important;
+}
+
 
