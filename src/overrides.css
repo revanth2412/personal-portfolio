@@ -939,3 +939,45 @@
     box-shadow: 0 12px 28px rgba(41, 39, 64, 0.05) !important;
   }
 }
+
+/* Projects Section Light Mode Text Visibility Controls */
+.projects {
+  color: var(--ink) !important;
+}
+
+.project-title h2 {
+  color: var(--ink) !important;
+}
+
+.project-title p {
+  color: var(--ink) !important;
+}
+
+.project h3 {
+  color: var(--ink) !important;
+}
+
+.project p {
+  color: #ef6688 !important; /* category tag in pink */
+}
+
+.project small {
+  color: #555566 !important; /* highly readable description */
+}
+
+.project b {
+  color: var(--ink) !important;
+}
+
+/* Hover overrides to maintain readability */
+.project:hover h3 {
+  color: var(--ink) !important;
+}
+
+.project:hover small {
+  color: #555566 !important;
+}
+
+.project:hover b {
+  color: var(--ink) !important;
+}
