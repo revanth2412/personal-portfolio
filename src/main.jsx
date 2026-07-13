@@ -164,20 +164,21 @@ function App(){
         const w = window.innerWidth;
         const h = window.innerHeight;
 
-        const cx = w * 0.45;
-        const cy = h * 0.5;
-        const r = Math.min(w, h) * 0.22;
+        const cx = w * 0.5;
+        const cy = h * 0.45;
+        const rx = w * 0.35;
+        const ry = h * 0.18;
 
         const introPoints = [
           { x: -100, y: h * 0.15 },
-          { x: cx - r, y: cy } // start of circle
+          { x: cx - rx, y: cy } // start of oval
         ];
 
-        // 8 points for a smooth, perfect circle swivel
+        // 8 points for a smooth, perfect oval loop
         for (let theta = Math.PI; theta >= -Math.PI; theta -= Math.PI / 4) {
           introPoints.push({
-            x: cx + r * Math.cos(theta),
-            y: cy + r * Math.sin(theta)
+            x: cx + rx * Math.cos(theta),
+            y: cy + ry * Math.sin(theta)
           });
         }
         introPoints.push({ x: cx, y: cy });
@@ -190,16 +191,15 @@ function App(){
         }
         introDPath += ` L ${introPoints[introPoints.length - 1].x} ${introPoints[introPoints.length - 1].y}`;
 
-        // Mobile main scroll curves: tighter sweeps, closer to center reading column
+        // Mobile main scroll curves: strictly descending to guarantee the plane faces downwards
         const scrollPoints = [
           { x: cx, y: cy }, 
-          { x: w * 0.3, y: h * 0.35 },
-          { x: w * 0.7, y: h * 0.5 },
-          { x: w * 0.35, y: h * 0.45 },
-          { x: w * 0.65, y: h * 0.55 },
-          { x: w * 0.4, y: h * 0.5 },
-          { x: w * 0.6, y: h * 0.6 },
-          { x: w + 80, y: h * 0.75 }
+          { x: w * 0.15, y: h * 0.58 },
+          { x: w * 0.85, y: h * 0.68 },
+          { x: w * 0.2, y: h * 0.78 },
+          { x: w * 0.8, y: h * 0.88 },
+          { x: w * 0.15, y: h * 0.95 },
+          { x: w + 80, y: h * 1.05 }
         ];
 
         let scrollDPath = `M ${scrollPoints[0].x} ${scrollPoints[0].y}`;
@@ -231,7 +231,7 @@ function App(){
                     trigger: document.body,
                     start: "top top",
                     end: "bottom bottom",
-                    scrub: 2.2,
+                    scrub: 1.0,
                     invalidateOnRefresh: true
                   }
                 })

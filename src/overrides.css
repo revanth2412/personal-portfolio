@@ -11,6 +11,9 @@
 .nav{position:fixed;top:13px;left:50%;transform:translateX(-50%);width:min(920px,90vw);height:58px;border-radius:100px;background:#ffffffc9;backdrop-filter:blur(17px);box-shadow:0 8px 30px #29274018;border:1px solid #ffffff;transition:width .45s cubic-bezier(.2,.8,.2,1),top .45s cubic-bezier(.2,.8,.2,1),background .45s,box-shadow .45s;z-index:30}.nav-bubble{top:13px;width:min(840px,84vw);background:#ffffffef;box-shadow:0 12px 32px #29274028}.nav .brand,.nav .navlinks,.nav .sayhi{color:#292740}.nav .theme{border-color:#29274033!important}.nav .sayhi{background:#292740;color:#fff;border-radius:30px;padding:9px 12px}.dark .nav{background:#20202de8;border-color:#ffffff20}.dark .nav .brand,.dark .nav .navlinks{color:#f5f2ea}.dark .nav .sayhi{background:var(--yellow);color:#292740}.dark .about{background:#151622!important;color:#f5f2ea!important}.dark .about h2,.dark .about-text,.dark .languages{color:#f5f2ea!important}.dark .about-text p{color:#e1dee9!important}.dark .languages{border-color:#ffffff36!important}.dark .about .eyebrow{color:#cfcad9!important}.dark .about em{color:var(--yellow)}.dark .intro-photo{border-radius:32px}.dark .project-grid,.dark .award-list,.dark .tech-grid,.dark .dashboard{border-radius:28px}.hero,.about,.dashboard,.projects,.tech,.experience,.honors,footer{border-radius:0 0 46px 46px}.about,.dashboard,.projects,.tech,.experience,.honors{overflow:hidden}.hero-image,.dash-card,.project,.tech-card,.award-list article,.timeline-dot{box-shadow:0 12px 28px #29274014}.timeline-item p{max-width:620px}.sayhi{cursor:pointer}.sayhi:hover{background:#ef6688!important;color:#fff!important;border-radius:30px;padding:9px 12px}.dark .sayhi:hover{background:var(--yellow)!important;color:#292740!important}
 @media(max-width:800px){
   body{padding-bottom:90px}
+  #plane-path {
+    stroke: none !important;
+  }
   
   /* Top Header Bar (App Bar Style) */
   .mobile-header {
@@ -769,6 +772,10 @@
   color: var(--ink) !important;
 }
 
+.dark .project-visual {
+  color: #292740 !important;
+}
+
 .dark .project p {
   color: var(--yellow) !important; /* project type tag */
 }
@@ -857,6 +864,15 @@
 
 /* GSAP Horizontal Scroll Layout (Desktop) */
 @media (min-width: 801px) {
+  .hero {
+    height: auto !important;
+    min-height: 820px !important;
+    max-height: none !important;
+    padding-bottom: 80px !important;
+  }
+  .hero-facts {
+    padding-bottom: 20px !important;
+  }
   .projects {
     height: 100vh !important;
     overflow: hidden !important;
